@@ -1,6 +1,6 @@
 package net.potionstudios.biomeswevegone.client.renderer.entity.oddion;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.potionstudios.biomeswevegone.BiomesWeveGone;
 import net.potionstudios.biomeswevegone.world.entity.oddion.Oddion;
 import software.bernie.geckolib.model.GeoModel;
@@ -14,17 +14,17 @@ import software.bernie.geckolib.renderer.base.GeoRenderState;
 class OddionModel extends GeoModel<Oddion> {
 
     @Override
-    public ResourceLocation getModelResource(GeoRenderState renderState) {
+    public Identifier getModelResource(GeoRenderState renderState) {
         return BiomesWeveGone.id("oddion");
     }
 
     @Override
-    public ResourceLocation getTextureResource(GeoRenderState renderState) {
+    public Identifier getTextureResource(GeoRenderState renderState) {
         return BiomesWeveGone.id("textures/entity/oddion/" + renderState.getGeckolibData(OddionRenderer.VARIANT) + ".png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Oddion animatable) {
+    public Identifier getAnimationResource(Oddion animatable) {
         return BiomesWeveGone.id("oddion");
     }
 }

@@ -5,15 +5,14 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.util.Mth;
 import net.potionstudios.biomeswevegone.world.entity.manowar.ManOWar;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.renderer.internal.RenderPassInfo;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 /**
@@ -36,21 +35,21 @@ public class ManOWarRenderer<R extends EntityRenderState & GeoRenderState> exten
     }
 
     @Override
-    public void preRender(R renderState, PoseStack poseStack, BakedGeoModel model, SubmitNodeCollector renderTasks, CameraRenderState cameraState, int packedLight, int packedOverlay, int renderColor) {
-        if (renderState.getGeckolibData(BABY)) poseStack.scale(0.5f, 0.5f, 0.5f);
-        super.preRender(renderState, poseStack, model, renderTasks, cameraState, packedLight, packedOverlay, renderColor);
+    public void preRenderPass(RenderPassInfo<R> renderPassInfo, SubmitNodeCollector renderTasks) {
+        if (renderPassInfo.getGeckolibData(BABY)) renderPassInfo.poseStack().scale(0.5f, 0.5f, 0.5f);
+        super.preRenderPass(renderPassInfo, renderTasks);
     }
 
-
     @Override
-    protected void applyRotations(R renderState, PoseStack poseStack, float nativeScale, CameraRenderState cameraState) {
-        float i = Mth.lerp(renderState.getGeckolibData(DataTickets.PARTIAL_TICK), renderState.getGeckolibData(xBODY_ROT_O), renderState.getGeckolibData(xBODY_ROT));
-        float j = Mth.lerp(renderState.getGeckolibData(DataTickets.PARTIAL_TICK), renderState.getGeckolibData(zBODY_ROT_O), renderState.getGeckolibData(zBODY_ROT));
+    protected void applyRotations(RenderPassInfo<R> renderPassInfo, PoseStack poseStack, float nativeScale) {
+        float i = Mth.lerp(renderPassInfo.getGeckolibData(DataTickets.PARTIAL_TICK), renderPassInfo.getGeckolibData(xBODY_ROT_O), renderPassInfo.getGeckolibData(xBODY_ROT));
+        float j = Mth.lerp(renderPassInfo.getGeckolibData(DataTickets.PARTIAL_TICK), renderPassInfo.getGeckolibData(zBODY_ROT_O), renderPassInfo.getGeckolibData(zBODY_ROT));
         poseStack.translate(0.0D, 0.5D, 0.0D);
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - renderState.getGeckolibData(DataTickets.ENTITY_YAW))); //TODO: This used to be rotationYaw, but that was removed in 1.21.6, so we use entity yaw instead?
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - renderPassInfo.getGeckolibData(DataTickets.ENTITY_YAW))); //TODO: This used to be rotationYaw, but that was removed in 1.21.6, so we use entity yaw instead?
         poseStack.mulPose(Axis.XP.rotationDegrees(i));
         poseStack.mulPose(Axis.YP.rotationDegrees(j));
         poseStack.translate(0.0D, -1.2000000476837158D, 0.0D);
+        super.applyRotations(renderPassInfo, poseStack, nativeScale);
     }
 
     @Override

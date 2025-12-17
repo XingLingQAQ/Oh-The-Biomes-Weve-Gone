@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.resources.model.BlockModelRotation;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.potionstudios.biomeswevegone.BiomesWeveGone;
 import net.potionstudios.biomeswevegone.client.BiomesWeveGoneClient;
 
@@ -55,7 +55,7 @@ public class BiomesWeveGoneClientFabric implements ClientModInitializer, ModelLo
         });
     }
 
-    private static SimpleUnbakedExtraModel<BlockStateModel> blockStateModel(ResourceLocation model) {
+    private static SimpleUnbakedExtraModel<BlockStateModel> blockStateModel(Identifier model) {
         return new SimpleUnbakedExtraModel<>(model, (baked, baker) -> {
             TextureSlots textures = baked.getTopTextureSlots();
             return new SingleVariant(new SimpleModelWrapper(

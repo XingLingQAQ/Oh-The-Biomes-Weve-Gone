@@ -43,7 +43,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
@@ -69,9 +69,10 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animatable.processing.AnimationController;
-import software.bernie.geckolib.animatable.processing.AnimationTest;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Map;
@@ -248,9 +249,9 @@ public class PumpkinWarden extends PathfinderMob implements GeoEntity {
         return animatableInstanceCache;
     }
 
-    private static final RawAnimation HIDE_START = RawAnimation.begin().then("animation.pumpkinwarden.hidestart", Animation.LoopType.PLAY_ONCE);
+    private static final RawAnimation HIDE_START = RawAnimation.begin().then("animation.pumpkinwarden.hidestart", LoopType.PLAY_ONCE);
     private static final RawAnimation HIDE = RawAnimation.begin().thenLoop("animation.pumpkinwarden.hide");
-    private static final RawAnimation HIDE_END = RawAnimation.begin().then("animation.pumpkinwarden.hideend", Animation.LoopType.PLAY_ONCE);
+    private static final RawAnimation HIDE_END = RawAnimation.begin().then("animation.pumpkinwarden.hideend", LoopType.PLAY_ONCE);
     private static final RawAnimation HOLDING_WALKING = RawAnimation.begin().thenPlay("animation.pumpkinwarden.holding_walking");
     private static final RawAnimation HOLDING_IDLE = RawAnimation.begin().thenPlay("animation.pumpkinwarden.holding_idle");
     private static final RawAnimation WALKING = RawAnimation.begin().thenPlay("animation.pumpkinwarden.walking");
@@ -259,7 +260,7 @@ public class PumpkinWarden extends PathfinderMob implements GeoEntity {
 
 
     private PlayState predicate(@NotNull AnimationTest<PumpkinWarden> event) {
-        event.controller().transitionLength(0);
+        //event.controller().transitionLength(0);
         if (isHiding())
             if (event.controller().hasAnimationFinished())
                 return event.setAndContinue(HIDE);
