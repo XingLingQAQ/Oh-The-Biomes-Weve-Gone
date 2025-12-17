@@ -56,12 +56,12 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.potionstudios.biomeswevegone.tags.BWGItemTags;
+import net.potionstudios.biomeswevegone.world.attribute.BWGEnvironmentAttributes;
 import net.potionstudios.biomeswevegone.world.entity.BWGEntityType;
 import net.potionstudios.biomeswevegone.world.entity.ai.behavior.PumpkinWardenGoalPackages;
 import net.potionstudios.biomeswevegone.world.entity.ai.memory.BWGMemoryModuleType;
 import net.potionstudios.biomeswevegone.world.entity.ai.sensing.BWGSensorType;
 import net.potionstudios.biomeswevegone.world.entity.ai.village.poi.BWGPoiTypes;
-import net.potionstudios.biomeswevegone.world.entity.schedule.BWGSchedule;
 import net.potionstudios.biomeswevegone.world.level.block.BWGBlocks;
 import net.potionstudios.biomeswevegone.world.level.block.entities.PumpkinBurrowBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -164,7 +164,7 @@ public class PumpkinWarden extends PathfinderMob implements GeoEntity {
     }
 
     private void registerBrainGoals(Brain<PumpkinWarden> brain) {
-        brain.setSchedule(BWGSchedule.PUMPKIN_WARDEN.get());
+        brain.setSchedule(BWGEnvironmentAttributes.PUMPKIN_WARDEN_ACTIVITY.get());
         brain.addActivity(Activity.CORE, PumpkinWardenGoalPackages.getCorePackage());
         brain.addActivity(Activity.PLAY, PumpkinWardenGoalPackages.getPlayPackage());
         brain.addActivity(Activity.IDLE, PumpkinWardenGoalPackages.getIdlePackage());
@@ -181,7 +181,7 @@ public class PumpkinWarden extends PathfinderMob implements GeoEntity {
         brain.setDefaultActivity(Activity.PLAY);
         if (isHiding()) brain.setActiveActivityIfPossible(Activity.HIDE);
         else brain.setActiveActivityIfPossible(Activity.PLAY);
-        brain.updateActivityFromSchedule(level().getDayTime(), level().getGameTime());
+        brain.updateActivityFromSchedule(level().environmentAttributes(), level().getGameTime(), position());
     }
 
     @Override

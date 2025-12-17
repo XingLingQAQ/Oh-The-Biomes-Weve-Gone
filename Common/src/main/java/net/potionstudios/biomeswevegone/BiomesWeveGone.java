@@ -14,6 +14,7 @@ import net.potionstudios.biomeswevegone.config.configs.BWGMobSpawnConfig;
 import net.potionstudios.biomeswevegone.sounds.BWGSounds;
 import net.potionstudios.biomeswevegone.compat.vanilla.dispenser.BWGDispenseItemBehavior;
 import net.potionstudios.biomeswevegone.tags.BWGEntityTypeTags;
+import net.potionstudios.biomeswevegone.world.attribute.BWGEnvironmentAttributes;
 import net.potionstudios.biomeswevegone.world.entity.BWGEntityType;
 import net.potionstudios.biomeswevegone.world.entity.ai.memory.BWGMemoryModuleType;
 import net.potionstudios.biomeswevegone.world.entity.ai.sensing.BWGSensorType;
@@ -21,7 +22,7 @@ import net.potionstudios.biomeswevegone.world.entity.ai.village.poi.BWGPoiTypes;
 import net.potionstudios.biomeswevegone.world.entity.npc.BWGVillagerProfessions;
 import net.potionstudios.biomeswevegone.world.entity.npc.BWGVillagerTypes;
 import net.potionstudios.biomeswevegone.world.entity.pumpkinwarden.PumpkinWarden;
-import net.potionstudios.biomeswevegone.world.entity.schedule.BWGSchedule;
+import net.potionstudios.biomeswevegone.world.timeline.BWGTimelines;
 import net.potionstudios.biomeswevegone.world.item.BWGCreativeTabs;
 import net.potionstudios.biomeswevegone.world.item.BWGItems;
 import net.potionstudios.biomeswevegone.world.level.block.BWGBlocks;
@@ -78,10 +79,11 @@ public class BiomesWeveGone {
         BWGVillagerProfessions.professions();
         BWGCustomStructureProcessors.processors();
         BWGVillagerTypes.villagerTypes();
-        BWGSchedule.schedules();
+        BWGTimelines.timelines();
         BWGMemoryModuleType.memoryModuleTypes();
         BWGSensorType.sensorTypes();
         BWGMapDecorationTypes.mapDecorationTypes();
+        BWGEnvironmentAttributes.environmentAttributes();
     }
 
     /**
