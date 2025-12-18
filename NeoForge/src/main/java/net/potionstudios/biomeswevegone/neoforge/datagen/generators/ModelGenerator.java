@@ -304,7 +304,7 @@ public class ModelGenerator extends ModelProvider {
                 );
             } else if (b instanceof DoublePlantBlock) {
                 blockModels.createDoublePlant(b, BlockModelGenerators.PlantType.NOT_TINTED);
-                if (!(b.builtInRegistryHolder().key().location().toLanguageKey().contains("pitcher_plant")))
+                if (!(b.builtInRegistryHolder().key().identifier().toLanguageKey().contains("pitcher_plant")))
                     blockModels.registerSimpleFlatItemModel(b, "_top");
                 else basicItem(itemModels, b.asItem());
             } else if (b instanceof WhitePuffballBlock) {
