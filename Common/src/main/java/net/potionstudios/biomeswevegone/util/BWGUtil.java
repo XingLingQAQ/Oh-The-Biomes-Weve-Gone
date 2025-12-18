@@ -43,7 +43,7 @@ public class BWGUtil {
         StringBuilder builder = new StringBuilder();
 
         for (ResourceKey<T>[] value : valueToPrint) {
-            builder.append(Arrays.toString(Arrays.stream(value).map(ResourceKey::location).toArray(Identifier[]::new))).append("\n");
+            builder.append(Arrays.toString(Arrays.stream(value).map(ResourceKey::identifier).toArray(Identifier[]::new))).append("\n");
         }
         return builder.toString();
     }
