@@ -79,11 +79,11 @@ public class BiomesWeveGone {
         BWGVillagerProfessions.professions();
         BWGCustomStructureProcessors.processors();
         BWGVillagerTypes.villagerTypes();
+        BWGEnvironmentAttributes.environmentAttributes();
         BWGTimelines.timelines();
         BWGMemoryModuleType.memoryModuleTypes();
         BWGSensorType.sensorTypes();
         BWGMapDecorationTypes.mapDecorationTypes();
-        BWGEnvironmentAttributes.environmentAttributes();
     }
 
     /**
