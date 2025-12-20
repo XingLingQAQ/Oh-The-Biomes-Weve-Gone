@@ -18,6 +18,7 @@ import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.resources.Identifier;
 import net.potionstudios.biomeswevegone.BiomesWeveGone;
 import net.potionstudios.biomeswevegone.client.BiomesWeveGoneClient;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class BiomesWeveGoneClientFabric implements ClientModInitializer, ModelLo
     }
 
     @Override
-    public void initialize(Context context) {
+    public void initialize(@NonNull Context context) {
         BiomesWeveGoneClient.registerAdditionalModels((name) -> {
             ExtraModelKey<BlockStateModel> key = ExtraModelKey.create(() -> name);
             EXTRA_MODELS.put(name, key);
@@ -59,7 +60,7 @@ public class BiomesWeveGoneClientFabric implements ClientModInitializer, ModelLo
         return new SimpleUnbakedExtraModel<>(model, (baked, baker) -> {
             TextureSlots textures = baked.getTopTextureSlots();
             return new SingleVariant(new SimpleModelWrapper(
-                    baked.bakeTopGeometry(textures, baker, BlockModelRotation.X0_Y0),
+                    baked.bakeTopGeometry(textures, baker, BlockModelRotation.IDENTITY),
                     baked.getTopAmbientOcclusion(),
                     baked.resolveParticleSprite(textures, baker)
             ));
