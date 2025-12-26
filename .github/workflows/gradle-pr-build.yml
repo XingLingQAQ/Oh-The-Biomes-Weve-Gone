@@ -3,10 +3,7 @@ name: Build Gradle for Pull Request
 on:
   pull_request:
     branches:
-      - 1.21.10
-      - 1.21.4
-      - 1.21.1
-      - 1.20.1
+      - 1.21.11-WIP
     types:
       - synchronize
       - opened
@@ -29,4 +26,11 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Execute Gradle build
-        run: ./gradlew build --scan
+        run: ./gradlew build 
+
+      - name: Archive Artifacts
+        uses: GeyserMC/actions/upload-multi-artifact@master
+        if: success()
+        with:
+          artifacts: | 
+            Fabric/build/libs/*.jar
