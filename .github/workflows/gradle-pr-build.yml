@@ -1,13 +1,9 @@
 name: Build Gradle for Pull Request
 
 on:
-  pull_request:
+  push:
     branches:
       - 1.21.11-WIP
-    types:
-      - synchronize
-      - opened
-      - reopened
 
 jobs:
   gradle:
