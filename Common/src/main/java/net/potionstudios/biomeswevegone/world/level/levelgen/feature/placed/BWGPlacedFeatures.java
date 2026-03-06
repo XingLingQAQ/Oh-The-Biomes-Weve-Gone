@@ -38,7 +38,5 @@ public class BWGPlacedFeatures {
         BiomesWeveGone.LOGGER.info("Registering Oh The Biomes We've Gone Placed Features");
         BWGOverworldTreePlacedFeatures.init();
         BWGOverworldVegationPlacedFeatures.init();
-        BWGVanillaPlacedFeatures.init();
     }
-
 }

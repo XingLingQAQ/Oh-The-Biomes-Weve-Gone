@@ -1,7 +1,5 @@
 package net.potionstudios.biomeswevegone.fabric;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -20,8 +18,6 @@ import net.potionstudios.biomeswevegone.world.item.BWGItems;
 import net.potionstudios.biomeswevegone.world.item.brewing.BWGBrewingRecipes;
 import net.potionstudios.biomeswevegone.world.item.tools.ToolInteractions;
 import net.potionstudios.biomeswevegone.world.level.block.BlockFeatures;
-import net.potionstudios.biomeswevegone.config.configs.BWGWorldGenConfig;
-import net.potionstudios.biomeswevegone.world.level.levelgen.biome.modifiers.BWGBiomeModifiers;
 
 /**
  * Used for Vanilla compatibility on the Fabric platform.
@@ -36,7 +32,6 @@ public class VanillaCompatFabric {
         BlockFeatures.registerCompostables(CompostingChanceRegistry.INSTANCE::add);
         ToolInteractions.registerFlattenables(FlattenableBlockRegistry::register);
         ToolInteractions.registerTillables((block, pair) -> TillableBlockRegistry.register(block, pair.getFirst(), pair.getSecond()));
-        registerBiomeModifiers();
         registerLootModifiers();
         if (!BWGTradesConfig.INSTANCE.trades.disableTrades.value()) {
             registerTrades();
@@ -46,14 +41,6 @@ public class VanillaCompatFabric {
         FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> BWGBrewingRecipes.buildBrewingRecipes(builder::addMix));
         BWGVillagerTypes.setVillagerBiomes(VillagerType.BY_BIOME::put);
         UseEntityCallback.EVENT.register(((player, level, interactionHand, entity, entityHitResult) -> PumpkinWarden.villagerToPumpkinWarden(entity, player.getItemInHand(interactionHand), level) ? InteractionResult.SUCCESS : InteractionResult.PASS));
-    }
-
-    private static void registerBiomeModifiers() {
-        if (BWGWorldGenConfig.INSTANCE.get().vanillaAdditions()) {
-            BWGBiomeModifiers.init();
-            BWGBiomeModifiers.BIOME_MODIFIERS_FACTORIES.values().stream().filter(BWGBiomeModifiers.BWGBiomeModifier::enabled).forEach((modifier) ->
-                    BiomeModifications.addFeature(BiomeSelectors.includeByKey(modifier.biomes()), modifier.step(), modifier.feature()));
-        }
     }
 
     private static void registerLootModifiers() {
